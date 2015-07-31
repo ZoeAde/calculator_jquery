@@ -3,6 +3,9 @@ $(document).ready(function() {
 var buttons = $('.buttons span');
 var totalScreen = $('#screen');
 var totalOutput = totalScreen.text;
+var sumTotal;
+var sum;
+
 //operators
 var cancelBtn = buttons[0];
 var divideBtn = buttons[1];
@@ -29,36 +32,82 @@ function value(number) {
   return numberValue;
 }
 
-function arraySum(array) {
-  var sum = "";
-  for (var i = 0; i < array.length; i++) {
-    sum += array[i];
-  }
-  return sum;
-}
+//operator value
+// function symbol(operator) {
+//   if (operator === divideBtn) {
+//     return "/";
+//   }
+//   else if (operator === multiplyBtn) {
+//     return "*";
+//   }
+//   else if (operator === plusBtn) {
+//     return "+";
+//   }
+//   else if (operator === minusBtn) {
+//     return "-";
+//   }
+// }
 
 
+//Button Click
 buttons.on("click", function() {
 
-  if ('#cancel') {
+  sum = [];
+  if (this === cancelBtn) {
     totalScreen.empty();
+    sum = [];
   }
 
-  else if('.operators')
-    totalScreen.append(this.innerHTML);
-  else
+  else if(this === multiplyBtn) {
+    totalScreen.append("x");
+    sum.push("x");
+  }
+
+  else if (this === divideBtn) {
+    totalScreen.append("/");
+    sum.push("/");
+    console.log(sum);
+  }
+  else if (this === minusBtn) {
+    totalScreen.append("-");
+    sum.push("-");
+    console.log(sum);
+  }
+  else if (this === plusBtn) {
+    totalScreen.append("+");
+    sum.push("+");
+    console.log(sum);
+  }
+
+  else if (this === equalBtn) {
+    //total equation function
+    sum = arraySum(sum);
+    totalScreen.html(sum);
+    console.log(sum);
+  }
+  else {
     totalScreen.append(value(this));
+    sum.push(value(this));
+    console.log(sum);
+  }
+  return sum;
 });
 
-
-
-
-//var x = totalScreen.html();
-
-
-//operator is index [1];
-
-
+function arraySum(sum) {
+  if (sum[1] === "/") {
+    sumTotal = sum[0]/sum[2];
+  }
+  else if (sum[1] === "x") {
+    sumTotal = sum[0]*sum[2];
+  }
+  else if (sum[1] === "+") {
+    sumTotal = sum[0] + sum [2];
+  }
+  else {
+    sumTotal = sum[0] - sum [2];
+  }
+  return sumTotal;
+}
 
 
 });
